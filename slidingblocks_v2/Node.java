@@ -190,24 +190,22 @@ public class Node implements Comparable<Node> {
 	
 	public void printPath() {
 		Deque<Direction> stack = new ArrayDeque<>();
-		stack.push(direction);
+		if (parent == null) {
+			return;
+		}
 		
 		Node current = this;
-		while (current.parent != null) {
-			stack.push(current.parent.direction);
+		while (current.gCost != 0) {
+			stack.push(current.direction);
 			current = current.parent;
 		}
 		
 		int size = stack.size();
 		for (int i = 0; i < size ; i++) {
-			if (i == 0) {
-				stack.pop();
-				continue;//TODO : ...
-			}
 			System.out.println(stack.pop());
 		}
 		System.out.println();
-		System.out.println("Total steps: " + (size - 1));
+		System.out.println("Total steps: " + (size));
 	}
 	
 	@Override
